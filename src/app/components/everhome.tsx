@@ -2,32 +2,16 @@
 
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const EverHome = () => {
-  // ✅ Typed refs
-  const circlesRef = useRef<HTMLDivElement[]>([]);
   const servicesSectionRef = useRef<HTMLDivElement | null>(null);
   const serviceCardsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    // Floating circles (if used)
-    circlesRef.current.forEach((circle, i) => {
-      gsap.to(circle, {
-        x: "random(-50, 50)",
-        y: "random(-50, 50)",
-        duration: "random(3, 6)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: i * 0.2,
-      });
-    });
-
     // Services animation
     if (serviceCardsRef.current.length > 0) {
       gsap.to(serviceCardsRef.current, {
@@ -42,7 +26,7 @@ const EverHome = () => {
       });
     }
 
-    // 🕶 Glass animation
+    // Glass animation
     gsap.fromTo(
       ".glass",
       {
@@ -75,7 +59,6 @@ const EverHome = () => {
     );
   }, []);
 
-  // ✅ Typed functions
   const addServiceCardRef = (el: HTMLDivElement | null) => {
     if (el && !serviceCardsRef.current.includes(el)) {
       serviceCardsRef.current.push(el);
@@ -102,7 +85,7 @@ const EverHome = () => {
             Your moment. Our styling.
           </h1>
           <p className="text-lg text-gray-200 mb-8">
-            Premium eyewear styling for weddings
+            Premium eyewear styling for weddings & special occasions
           </p>
           <button className="bg-[#C5A880] px-8 py-3 rounded-lg font-bold">
             Book Appointment
@@ -112,20 +95,20 @@ const EverHome = () => {
 
       {/* SERVICES */}
       <section
-        className="py-16 px-6 max-w-7xl mx-auto text-center"
         ref={servicesSectionRef}
+        className="py-16 px-6 max-w-7xl mx-auto text-center"
       >
         <h2 className="text-4xl font-serif mb-10">Services</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {["Bride", "Family"].map((title, i) => (
+          {["Bride & Groom", "Family Styling"].map((title, i) => (
             <div
               key={i}
               ref={addServiceCardRef}
-              className="h-64 bg-gray-200 rounded-xl"
+              className="h-64 bg-gray-200 rounded-xl flex items-center justify-center"
               style={{ clipPath: "inset(0 0 100% 0)" }}
             >
-              <h3 className="mt-20 text-xl">{title}</h3>
+              <h3 className="text-xl font-semibold">{title}</h3>
             </div>
           ))}
         </div>
@@ -145,11 +128,11 @@ const EverHome = () => {
               className="object-cover"
             />
 
-            {/* 🕶 GLASS */}
+            {/* GLASS IMAGE */}
             <img
               src="/glass.png"
-              className="glass absolute bottom-6 left-1/2 -translate-x-1/2 w-32 opacity-0"
               alt="glass"
+              className="glass absolute bottom-6 left-1/2 -translate-x-1/2 w-32 opacity-0"
             />
           </div>
 
@@ -159,7 +142,7 @@ const EverHome = () => {
               In-Home Styling Experience
             </h3>
             <p className="text-gray-600">
-              Premium styling experience at your home or venue.
+              Premium styling experience at your home or wedding venue with expert consultants.
             </p>
           </div>
         </div>
