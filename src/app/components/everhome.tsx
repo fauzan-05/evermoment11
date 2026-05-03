@@ -9,168 +9,169 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const EverHome = () => {
-    const circlesRef = useRef([]);
-    const servicesSectionRef = useRef(null);
-    const serviceCardsRef = useRef([]);
+  // ✅ Typed refs
+  const circlesRef = useRef<HTMLDivElement[]>([]);
+  const servicesSectionRef = useRef<HTMLDivElement | null>(null);
+  const serviceCardsRef = useRef<HTMLDivElement[]>([]);
 
-    useEffect(() => {
-        circlesRef.current.forEach((circle, i) => {
-            gsap.to(circle, {
-                x: "random(-50, 50)",
-                y: "random(-50, 50)",
-                duration: "random(3, 6)",
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut",
-                delay: i * 0.2
-            });
-        });
+  useEffect(() => {
+    // Floating circles (if used)
+    circlesRef.current.forEach((circle, i) => {
+      gsap.to(circle, {
+        x: "random(-50, 50)",
+        y: "random(-50, 50)",
+        duration: "random(3, 6)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: i * 0.2,
+      });
+    });
 
-        // Curtain reveal animation for service cards
-        if (serviceCardsRef.current.length > 0) {
-            gsap.to(serviceCardsRef.current, {
-                scrollTrigger: {
-                    trigger: servicesSectionRef.current,
-                    start: "top 70%", // Start animation when the section is 70% in view
-                },
-                clipPath: "inset(0 0 0% 0)", // Reveal the element by animating clipPath
-                duration: 1.2,
-                ease: "power3.inOut",
-                stagger: 0.3 // Add a delay between each card animating in
-            });
-        }
-    }, []);
+    // Services animation
+    if (serviceCardsRef.current.length > 0) {
+      gsap.to(serviceCardsRef.current, {
+        scrollTrigger: {
+          trigger: servicesSectionRef.current,
+          start: "top 70%",
+        },
+        clipPath: "inset(0 0 0% 0)",
+        duration: 1.2,
+        ease: "power3.inOut",
+        stagger: 0.3,
+      });
+    }
 
-    const addToRefs = (el) => {
-        if (el && !circlesRef.current.includes(el)) {
-            circlesRef.current.push(el);
-        }
-    };
-
-    const addServiceCardRef = (el) => {
-        if (el && !serviceCardsRef.current.includes(el)) {
-            serviceCardsRef.current.push(el);
-        }
-    };
-
-    return (
-        <div className="font-sans">
-            <div className="min-h-screen text-white overflow-hidden relative flex flex-col">
-                {/* Background Image */}
-                <div className="absolute inset-0 z-0">
-                    <Image
-                        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=2000"
-                        alt="Wedding Couple"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-black/50"></div>
-                </div>
-
-                {/* Main Hero Section */}
-                <main className="flex-1 flex flex-col items-center justify-center relative z-10 px-6 text-center mt-20 md:mt-0">
-                    <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6 drop-shadow-lg">
-                        Your moment. Our styling.
-                    </h1>
-                    <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl drop-shadow-md">
-                        Premium eyewear styling for weddings & special occasions
-                    </p>
-                    <button className="bg-[#C5A880] text-[#2D2926] px-10 py-4 rounded-xl font-bold text-base tracking-wide hover:bg-[#d4b994] transition-all transform active:scale-95 shadow-xl">
-                        Book Appointment
-                    </button>
-                </main>
-            </div>
-
-            {/* New Sections Wrapper */}
-            <div className="bg-[#F9F6F1] text-[#2D2926]">
-                {/* Value Section */}
-                <section className="py-20 px-6 max-w-7xl mx-auto text-center">
-                    <h2 className="text-4xl font-serif font-bold mb-12">Value Section</h2>
-                    <div className="grid md:grid-cols-3 gap-10">
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-bold font-serif">Premium Eyewear</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">Premium eyewear styling tailored to moment on special events for weddings and evening parties</p>
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-bold font-serif">Personalized Styling</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">Personalized styling with expert consultants your specific occasions brand styling</p>
-                        </div>
-                        <div className="space-y-4">
-                            <h3 className="text-xl font-bold font-serif">Wedding Experiences Service</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">Wedding ensemble tailor specific themes or traditional modern requirements custom designs</p>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Services Preview */}
-                <section className="py-16 px-6 max-w-7xl mx-auto text-center" ref={servicesSectionRef}>
-                    <h2 className="text-4xl font-serif font-bold mb-12">Services Preview</h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {[
-                            { title: "Bride & Groom Ensemble", img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800" },
-                            { title: "Family Styling", img: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800" },
-                            { title: "Friends & Crew Styling", img: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=800" },
-                            { title: "Guest Experience Styling", img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800" },
-                        ].map((service, idx) => (
-                            <div
-                                key={idx}
-                                ref={(el) => addServiceCardRef(el)}
-                                className="relative h-64 md:h-80 rounded-3xl overflow-hidden group border border-gray-200 shadow-md p-2"
-                                style={{ clipPath: "inset(0 0 100% 0)" }} // Initial state for curtain effect
-                            >
-                                <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                                    <Image src={service.img} alt={service.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
-                                    <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-6 transition-colors group-hover:bg-black/50">
-                                        <h3 className="text-white text-2xl font-serif font-bold mb-4">{service.title}</h3>
-                                        <Link href="/services/details">
-                                            <button className="bg-[#C5A880] text-white px-6 py-2 rounded-lg font-semibold text-sm hover:bg-[#b09570] transition-colors">View Details</button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Experience Section */}
-                <section className="py-20 px-6 max-w-7xl mx-auto">
-                    <h2 className="text-4xl font-serif font-bold mb-12 text-center">Experience Section</h2>
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden">
-                            <Image src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=800" alt="Experience" fill className="object-cover" />
-                        </div>
-                        <div className="space-y-6">
-                            <h3 className="text-3xl font-serif font-bold">In-Home Styling Experience</h3>
-                            <p className="text-gray-600 leading-relaxed">
-                                Convenient premium styling for weddings or any special occasions that guarantees expert service.
-                            </p>
-                            <ul className="space-y-3 text-gray-600">
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
-                                    <span>Personalized curated recommendation service</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
-                                    <span>Personalized custom fit and guaranteed experience</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
-                                    <span>Premium styling guaranteed experience</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
-                                    <span>Expert styling anywhere experience even on wedding venues.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-
-        </div>
+    // 🕶 Glass animation
+    gsap.fromTo(
+      ".glass",
+      {
+        y: 60,
+        opacity: 0,
+        scale: 0.8,
+        rotate: -10,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".glass",
+          start: "top 80%",
+        },
+        onComplete: () => {
+          gsap.to(".glass", {
+            y: 15,
+            repeat: -1,
+            yoyo: true,
+            duration: 2,
+            ease: "sine.inOut",
+          });
+        },
+      }
     );
+  }, []);
+
+  // ✅ Typed functions
+  const addServiceCardRef = (el: HTMLDivElement | null) => {
+    if (el && !serviceCardsRef.current.includes(el)) {
+      serviceCardsRef.current.push(el);
+    }
+  };
+
+  return (
+    <div className="font-sans">
+      {/* HERO */}
+      <div className="min-h-screen text-white relative flex flex-col">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc"
+            alt="Wedding"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+
+        <main className="flex-1 flex flex-col items-center justify-center relative z-10 text-center px-6">
+          <h1 className="text-5xl md:text-7xl font-bold font-serif mb-6">
+            Your moment. Our styling.
+          </h1>
+          <p className="text-lg text-gray-200 mb-8">
+            Premium eyewear styling for weddings
+          </p>
+          <button className="bg-[#C5A880] px-8 py-3 rounded-lg font-bold">
+            Book Appointment
+          </button>
+        </main>
+      </div>
+
+      {/* SERVICES */}
+      <section
+        className="py-16 px-6 max-w-7xl mx-auto text-center"
+        ref={servicesSectionRef}
+      >
+        <h2 className="text-4xl font-serif mb-10">Services</h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {["Bride", "Family"].map((title, i) => (
+            <div
+              key={i}
+              ref={addServiceCardRef}
+              className="h-64 bg-gray-200 rounded-xl"
+              style={{ clipPath: "inset(0 0 100% 0)" }}
+            >
+              <h3 className="mt-20 text-xl">{title}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* EXPERIENCE */}
+      <section className="py-20 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl text-center mb-10">Experience</h2>
+
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          {/* IMAGE */}
+          <div className="relative h-80 rounded-2xl overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1511499767150-a48a237f0083"
+              alt="Experience"
+              fill
+              className="object-cover"
+            />
+
+            {/* 🕶 GLASS */}
+            <img
+              src="/glass.png"
+              className="glass absolute bottom-6 left-1/2 -translate-x-1/2 w-32 opacity-0"
+              alt="glass"
+            />
+          </div>
+
+          {/* TEXT */}
+          <div>
+            <h3 className="text-2xl font-bold mb-4">
+              In-Home Styling Experience
+            </h3>
+            <p className="text-gray-600">
+              Premium styling experience at your home or venue.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <style jsx>{`
+        .glass {
+          filter: drop-shadow(0 10px 20px rgba(197, 168, 128, 0.4));
+        }
+      `}</style>
+    </div>
+  );
 };
 
 export default EverHome;
