@@ -9,45 +9,53 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const EverHome = () => {
-    const circlesRef = useRef([]);
-    const servicesSectionRef = useRef(null);
-    const serviceCardsRef = useRef([]);
+    const circlesRef = useRef<HTMLDivElement[]>([]);
+    const servicesSectionRef = useRef<HTMLElement | null>(null);
+    const serviceCardsRef = useRef<HTMLDivElement[]>([]);
+    
+    // Clear refs on each render to prevent duplicates in strict mode
+    serviceCardsRef.current = [];
+    circlesRef.current = [];
 
     useEffect(() => {
-        circlesRef.current.forEach((circle, i) => {
-            gsap.to(circle, {
-                x: "random(-50, 50)",
-                y: "random(-50, 50)",
-                duration: "random(3, 6)",
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut",
-                delay: i * 0.2
+        let ctx = gsap.context(() => {
+            circlesRef.current.forEach((circle, i) => {
+                gsap.to(circle, {
+                    x: "random(-50, 50)",
+                    y: "random(-50, 50)",
+                    duration: "random(3, 6)",
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: i * 0.2
+                });
             });
-        });
 
-        // Curtain reveal animation for service cards
-        if (serviceCardsRef.current.length > 0) {
-            gsap.to(serviceCardsRef.current, {
-                scrollTrigger: {
-                    trigger: servicesSectionRef.current,
-                    start: "top 70%", // Start animation when the section is 70% in view
-                },
-                clipPath: "inset(0 0 0% 0)", // Reveal the element by animating clipPath
-                duration: 1.2,
-                ease: "power3.inOut",
-                stagger: 0.3 // Add a delay between each card animating in
-            });
-        }
+            // Curtain reveal animation for service cards
+            if (serviceCardsRef.current.length > 0) {
+                gsap.to(serviceCardsRef.current, {
+                    scrollTrigger: {
+                        trigger: servicesSectionRef.current,
+                        start: "top 70%", // Start animation when the section is 70% in view
+                    },
+                    clipPath: "inset(0 0 0% 0)", // Reveal the element by animating clipPath
+                    duration: 1.2,
+                    ease: "power3.inOut",
+                    stagger: 0.3 // Add a delay between each card animating in
+                });
+            }
+        });
+        
+        return () => ctx.revert(); // Cleanup on unmount
     }, []);
 
-    const addToRefs = (el) => {
+    const addToRefs = (el: HTMLDivElement | null) => {
         if (el && !circlesRef.current.includes(el)) {
             circlesRef.current.push(el);
         }
     };
 
-    const addServiceCardRef = (el) => {
+    const addServiceCardRef = (el: HTMLDivElement | null) => {
         if (el && !serviceCardsRef.current.includes(el)) {
             serviceCardsRef.current.push(el);
         }
