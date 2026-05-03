@@ -1,30 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
 export default function Preloader() {
     const [loading, setLoading] = useState(true);
-    const pathname = usePathname();
 
     useEffect(() => {
-        setLoading(true);
         const timer = setTimeout(() => setLoading(false), 4200);
         return () => clearTimeout(timer);
-    }, [pathname]);
+    }, []);
 
     if (!loading) return null;
 
     return (
         <div className="fixed inset-0 bg-black flex items-center justify-center z-[9999]">
 
-            {/* 🔥 TIGHT CONTAINER */}
+            {/* TIGHT CONTAINER */}
             <div className="flex flex-col items-center leading-tight">
 
                 {/* SVG LOGO */}
                 <svg
                     width="260"
-                    height="110"   // 🔽 reduced from 140
+                    height="110"
                     viewBox="0 0 200 100"
                     fill="none"
                 >
@@ -50,7 +47,7 @@ export default function Preloader() {
                         className="draw"
                     />
 
-                    {/* ✨ MOVING SPARKLE */}
+                    {/* MOVING SPARKLE */}
                     <circle r="3" fill="#fff3c4">
                         <animateMotion
                             dur="2s"
@@ -73,7 +70,7 @@ export default function Preloader() {
                         />
                     </circle>
 
-                    {/* ✨ FINAL SPARKLE */}
+                    {/* FINAL SPARKLE */}
                     <g className="finalSparkle">
                         <circle cx="172" cy="18" r="3" fill="#fff3c4" />
                         <circle cx="172" cy="18" r="6" fill="#fff3c4" opacity="0.2" />

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import Navbar from "../shares/navbar";
+import Link from "next/link";
 
 const ServiceDetail = () => {
     const galleryImages = [
@@ -14,11 +14,6 @@ const ServiceDetail = () => {
 
     return (
         <div className="min-h-screen bg-[#F9F6F1] font-sans text-[#2D2926]">
-            {/* Navbar Layer */}
-            <div className="relative z-50">
-                <Navbar />
-            </div>
-
             {/* Hero Image */}
             <div className="relative w-full h-[50vh] md:h-[70vh] mt-24 md:mt-32 px-4 md:px-8 max-w-7xl mx-auto">
                 <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg">
@@ -89,9 +84,9 @@ const ServiceDetail = () => {
 
                     {/* Action Button */}
                     <div className="flex justify-center py-8">
-                        <button className="bg-[#C5A880] text-white px-12 md:px-16 py-4 md:py-5 rounded-xl font-bold text-sm md:text-base uppercase tracking-widest hover:bg-[#b59870] transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+                        <Link href="/booking" className="bg-[#C5A880] text-white px-12 md:px-16 py-4 md:py-5 rounded-xl font-bold text-sm md:text-base uppercase tracking-widest hover:bg-[#b59870] transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
                             Book This Service
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </main>

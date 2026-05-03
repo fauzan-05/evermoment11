@@ -56,7 +56,7 @@ export default function Gallery() {
       <div className="mb-10 text-center">
         <h2 className="text-4xl md:text-5xl font-serif mb-4 text-[#7A6B5D]">Our Gallery</h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Explore some of our favorite moments and beautiful memories we've helped create.
+          Explore some of our favorite moments and beautiful memories we&apos;ve helped create.
         </p>
       </div>
 

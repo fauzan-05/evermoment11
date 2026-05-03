@@ -2,6 +2,7 @@
 
 import { Instagram, Facebook, Phone, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
     return (
@@ -29,11 +30,11 @@ export default function Footer() {
                 <div>
                     <h3 className="font-medium text-lg mb-4">Quick Links</h3>
                     <ul className="space-y-2 text-sm text-gray-600">
-                        <li className="hover:text-black cursor-pointer">Home</li>
-                        <li className="hover:text-black cursor-pointer">Services</li>
-                        <li className="hover:text-black cursor-pointer">Gallery</li>
-                        <li className="hover:text-black cursor-pointer">About</li>
-                        <li className="hover:text-black cursor-pointer">Contact</li>
+                        <li><Link className="hover:text-black" href="/">Home</Link></li>
+                        <li><Link className="hover:text-black" href="/services">Services</Link></li>
+                        <li><Link className="hover:text-black" href="/gallery">Gallery</Link></li>
+                        <li><Link className="hover:text-black" href="/about">About</Link></li>
+                        <li><Link className="hover:text-black" href="/contact">Contact</Link></li>
                     </ul>
                 </div>
 
@@ -73,7 +74,7 @@ export default function Footer() {
 
             {/* Bottom */}
             <div className="border-t border-[#e5dfd5] text-center py-4 text-sm text-gray-500">
-                © {new Date().getFullYear()} ever moment. All rights reserved.
+                &copy; {new Date().getFullYear()} ever moment. All rights reserved.
             </div>
         </footer>
     );

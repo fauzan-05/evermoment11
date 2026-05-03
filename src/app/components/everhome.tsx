@@ -9,31 +9,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const EverHome = () => {
-    const circlesRef = useRef<HTMLDivElement[]>([]);
     const servicesSectionRef = useRef<HTMLElement | null>(null);
-    const serviceCardsRef = useRef<HTMLDivElement[]>([]);
-    
-    // Clear refs on each render to prevent duplicates in strict mode
-    serviceCardsRef.current = [];
-    circlesRef.current = [];
+    const serviceCardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
-        let ctx = gsap.context(() => {
-            circlesRef.current.forEach((circle, i) => {
-                gsap.to(circle, {
-                    x: "random(-50, 50)",
-                    y: "random(-50, 50)",
-                    duration: "random(3, 6)",
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: i * 0.2
-                });
-            });
+        const ctx = gsap.context(() => {
+            const serviceCards = serviceCardsRef.current.filter(Boolean);
 
             // Curtain reveal animation for service cards
-            if (serviceCardsRef.current.length > 0) {
-                gsap.to(serviceCardsRef.current, {
+            if (serviceCards.length > 0) {
+                gsap.to(serviceCards, {
                     scrollTrigger: {
                         trigger: servicesSectionRef.current,
                         start: "top 70%", // Start animation when the section is 70% in view
@@ -48,18 +33,6 @@ const EverHome = () => {
         
         return () => ctx.revert(); // Cleanup on unmount
     }, []);
-
-    const addToRefs = (el: HTMLDivElement | null) => {
-        if (el && !circlesRef.current.includes(el)) {
-            circlesRef.current.push(el);
-        }
-    };
-
-    const addServiceCardRef = (el: HTMLDivElement | null) => {
-        if (el && !serviceCardsRef.current.includes(el)) {
-            serviceCardsRef.current.push(el);
-        }
-    };
 
     return (
         <div className="font-sans">
@@ -123,7 +96,9 @@ const EverHome = () => {
                         ].map((service, idx) => (
                             <div
                                 key={idx}
-                                ref={(el) => addServiceCardRef(el)}
+                                ref={(el) => {
+                                    serviceCardsRef.current[idx] = el;
+                                }}
                                 className="relative h-64 md:h-80 rounded-3xl overflow-hidden group border border-gray-200 shadow-md p-2"
                                 style={{ clipPath: "inset(0 0 100% 0)" }} // Initial state for curtain effect
                             >
@@ -155,19 +130,19 @@ const EverHome = () => {
                             </p>
                             <ul className="space-y-3 text-gray-600">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
+                                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 rounded-full bg-[#C5A880]"></span>
                                     <span>Personalized curated recommendation service</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
+                                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 rounded-full bg-[#C5A880]"></span>
                                     <span>Personalized custom fit and guaranteed experience</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
+                                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 rounded-full bg-[#C5A880]"></span>
                                     <span>Premium styling guaranteed experience</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-[#C5A880] mt-1">•</span>
+                                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 rounded-full bg-[#C5A880]"></span>
                                     <span>Expert styling anywhere experience even on wedding venues.</span>
                                 </li>
                             </ul>

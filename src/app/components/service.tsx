@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import Navbar from "./shares/navbar";
+import Image from "next/image";
 
 const stylingServices = [
   {
@@ -38,8 +38,6 @@ const stylingServices = [
 const StylingServices = () => {
   return (
     <div className="min-h-screen bg-[#F9F6F1] font-sans selection:bg-[#C4A46E] selection:text-white">
-      <Navbar />
-
       {/* Hero Section */}
       <section className="relative pt-32 md:pt-48 pb-16 md:pb-20 text-center px-6 overflow-hidden">
         {/* Decorative elements */}
@@ -63,16 +61,18 @@ const StylingServices = () => {
       {/* Services Grid */}
       <section className="pb-24 md:pb-32 px-6 max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-14">
-          {stylingServices.map((service, idx) => (
+          {stylingServices.map((service) => (
             <div
               key={service.id}
               className="group bg-white rounded-[30px] md:rounded-[40px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] transition-all duration-700 hover:-translate-y-4 flex flex-col items-center border border-black/[0.03]"
             >
               {/* Image Wrapper */}
               <div className="w-[92%] h-[220px] md:h-[280px] mt-4 relative overflow-hidden rounded-[20px] md:rounded-[30px]">
-                <img
+                <Image
                   src={service.image}
                   alt={service.alt}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
@@ -93,7 +93,7 @@ const StylingServices = () => {
                 </p>
 
                 <Link
-                  href="#"
+                  href="/services/details"
                   className="group/btn relative overflow-hidden px-10 py-4 bg-[#C4A46E] text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-2xl transition-all duration-500 hover:bg-[#2D2926] hover:shadow-2xl hover:shadow-[#C4A46E]/30"
                 >
                   <span className="relative z-10">View Details</span>
@@ -118,12 +118,12 @@ const StylingServices = () => {
               <span className="italic text-[#C4A46E]">perfect signature style?</span>
             </h2>
             <p className="text-gray-400 text-base md:text-xl font-light leading-relaxed max-w-2xl mx-auto italic">
-              "We believe eyewear is the most important accessory. It's the first thing people notice about you."
+              &quot;We believe eyewear is the most important accessory. It&apos;s the first thing people notice about you.&quot;
             </p>
             <div className="pt-4 md:pt-6">
-              <button className="px-10 md:px-14 py-4 md:py-6 border border-[#C4A46E]/50 text-[#C4A46E] uppercase text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] font-bold hover:bg-[#C4A46E] hover:text-white transition-all duration-700 rounded-full hover:scale-105 active:scale-95">
+              <Link href="/booking" className="inline-flex px-10 md:px-14 py-4 md:py-6 border border-[#C4A46E]/50 text-[#C4A46E] uppercase text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] font-bold hover:bg-[#C4A46E] hover:text-white transition-all duration-700 rounded-full hover:scale-105 active:scale-95">
                 Book Private Consultation
-              </button>
+              </Link>
             </div>
           </div>
         </div>
