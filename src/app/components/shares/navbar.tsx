@@ -20,7 +20,7 @@ const Navbar = () => {
 
     return (
         <header className="fixed top-4 md:top-6 w-full z-[100] flex justify-center px-4">
-            <div className="flex items-center justify-between w-[95%] md:w-[85%] max-w-5xl h-12 md:h-14 px-6 md:px-10 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-[#C5A880]/20 bg-[#2B211C] relative z-10">
+            <div className="flex items-center justify-between w-[95%] md:w-[85%] max-w-5xl h-12 md:h-14 px-6 md:px-10 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-[#D9A05B]/20 bg-[#111111] relative z-10">
                 {/* Brand Logo */}
                 <div className="flex-shrink-0 -ml-2 md:-ml-4">
                     <Link href="/" className="group flex items-center h-full pr-3 md:pr-4">
@@ -50,7 +50,7 @@ const Navbar = () => {
 
                 {/* CTA & Mobile Toggle Area */}
                 <div className="flex items-center justify-end gap-4 md:gap-6 flex-shrink-0">
-                    <Link href="/booking" className="hidden lg:flex items-center justify-center bg-[#C5A880] text-[#2D2926] px-6 py-2.5 rounded-full font-bold text-[10px] uppercase tracking-[0.1em] hover:bg-[#d4b994] transition-colors shadow-md hover:scale-105 transform duration-300">
+                    <Link href="/booking" className="hidden lg:flex items-center justify-center bg-[#D9A05B] text-[#111] px-6 py-2.5 rounded-full font-bold text-[10px] uppercase tracking-[0.1em] hover:bg-white transition-colors shadow-md hover:scale-105 transform duration-300">
                         Book Appointment
                     </Link>
 
@@ -65,14 +65,14 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu Dropdown Curtain */}
-            <div className={`absolute top-[60px] w-[95%] bg-[#2B211C] rounded-2xl shadow-xl border border-[#C5A880]/20 lg:hidden overflow-hidden transition-all duration-500 ease-in-out origin-top flex flex-col ${isMobileMenuOpen ? "max-h-[400px] opacity-100 pointer-events-auto mt-2" : "max-h-0 opacity-0 pointer-events-none mt-0"}`}>
+            <div className={`absolute top-[60px] w-[95%] bg-[#111111] rounded-2xl shadow-xl border border-[#D9A05B]/20 lg:hidden overflow-hidden transition-all duration-500 ease-in-out origin-top flex flex-col ${isMobileMenuOpen ? "max-h-[400px] opacity-100 pointer-events-auto mt-2" : "max-h-0 opacity-0 pointer-events-none mt-0"}`}>
                 <div className="flex flex-col items-center py-8 gap-6 text-[12px] uppercase tracking-[0.2em] font-bold">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`transition-colors duration-300 ${pathname === link.href ? "text-[#C5A880]" : "text-white"}`}
+                            className={`transition-colors duration-300 ${pathname === link.href ? "text-[#D9A05B]" : "text-white"}`}
                         >
                             {link.name}
                         </Link>
@@ -80,7 +80,7 @@ const Navbar = () => {
                     <Link 
                         href="/booking"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="mt-2 bg-[#C5A880] text-[#2D2926] px-8 py-3 rounded-full font-bold text-[10px] uppercase tracking-[0.1em]"
+                        className="mt-2 bg-[#D9A05B] text-[#111] px-8 py-3 rounded-full font-bold text-[10px] uppercase tracking-[0.1em]"
                     >
                         Book Appointment
                     </Link>

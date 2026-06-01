@@ -4,24 +4,28 @@ import React from "react";
 
 const About = () => {
     return (
-        <div className="min-h-screen bg-white text-[#2b2b2b] font-sans pt-32 pb-20">
+        <div className="min-h-screen bg-[#0A0A0A] text-white font-sans pt-32 pb-20">
             <div className="max-w-4xl mx-auto px-6 text-center">
-                <h1 className="text-5xl md:text-6xl font-serif mb-12">About</h1>
+                <p className="text-[10px] uppercase tracking-[0.34em] text-[#D9A05B] font-bold mb-5">
+                    Private Eyewear Styling
+                </p>
+                <h1 className="text-5xl md:text-7xl font-serif mb-12">About Ever Moment</h1>
                 
-                <div className="space-y-8 text-sm md:text-base text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                <div className="space-y-8 text-base md:text-lg text-gray-400 leading-relaxed max-w-3xl mx-auto">
                     <p>
-                        Ever moment since store played individual details executed a premium wedding
-                        styling experience in orient details and premium wedding experience.
+                        Ever Moment redefines eyewear as a personal styling experience.
                     </p>
                     
                     <p>
-                        Our moment-driven details assure more individual styles and elevate premium wedding
-                        styling experience a premium wedding styling experience.
+                        We combine curated selections, aesthetic understanding, and one-to-one guidance to help you choose frames that align with your features, wardrobe, and the moments that matter.
                     </p>
                     
+                    <p className="text-2xl md:text-3xl font-serif text-white leading-snug">
+                        We don&apos;t sell eyewear. We design how you appear.
+                    </p>
+
                     <p>
-                        Unseen moment provide submerge to premium zone total styling and wood to
-                        moment unseen.
+                        Our approach is simple: make every look feel intentional, effortless, and distinctly yours.
                     </p>
                 </div>
             </div>

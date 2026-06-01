@@ -3,95 +3,97 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
+import type { Service } from "@/app/lib/services";
 
-const ServiceDetail = () => {
-    const galleryImages = [
-        "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800",
-    ];
+type ServiceDetailProps = {
+  service: Service;
+};
 
-    return (
-        <div className="min-h-screen bg-[#F9F6F1] font-sans text-[#2D2926]">
-            {/* Hero Image */}
-            <div className="relative w-full h-[50vh] md:h-[70vh] mt-24 md:mt-32 px-4 md:px-8 max-w-7xl mx-auto">
-                <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg">
-                    <Image
-                        src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=2000"
-                        alt="Bride & Groom Ensemble"
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                </div>
-            </div>
+const ServiceDetail = ({ service }: ServiceDetailProps) => {
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] font-sans text-white">
+      <section className="relative pt-32 md:pt-40 px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
+          <div>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] font-bold text-[#D9A05B] mb-8 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Services
+            </Link>
+            <p className="text-[10px] uppercase tracking-[0.34em] text-[#D9A05B] font-bold mb-5">
+              {service.category}
+            </p>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif leading-tight mb-7">
+              {service.title}
+            </h1>
+            <p className="text-gray-400 text-base md:text-xl leading-relaxed max-w-2xl mb-10">
+              {service.description}
+            </p>
+            <Link
+              href="/booking"
+              className="inline-flex items-center gap-3 bg-[#D9A05B] text-[#111] px-8 py-4 rounded-xl font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-white transition-colors"
+            >
+              Book This Service
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
 
-            {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20">
-                <div className="max-w-5xl mx-auto">
-                    {/* Title & Description */}
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 text-[#2D2926]">
-                        Bride & Groom Ensemble
-                    </h1>
-                    <p className="text-gray-600 text-lg md:text-xl leading-relaxed mb-12 max-w-4xl">
-                        Premium personal styling tailored base on the previous wedding events, showcasing seasonal acceptable bridal references patterns.
-                    </p>
-
-                    {/* Benefits Section */}
-                    <div className="mb-16">
-                        <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-[#2D2926]">Benefits</h2>
-                        <ul className="space-y-4 text-gray-600 text-base md:text-lg">
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
-                                Personalized premium services
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
-                                Personalized curated styling
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
-                                Absolute tailored consulting
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
-                                Wedding essential assistance
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Gallery Section */}
-                    <div className="mb-16">
-                        <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-[#2D2926]">Gallery</h2>
-                        {/* Scrollable on mobile, grid on desktop */}
-                        <div className="flex overflow-x-auto md:grid md:grid-cols-4 gap-4 pb-6 snap-x" style={{ scrollbarWidth: 'none' }}>
-                            {galleryImages.map((src, index) => (
-                                <div 
-                                    key={index} 
-                                    className="relative w-[280px] md:w-full h-[360px] flex-shrink-0 snap-center rounded-2xl overflow-hidden shadow-md"
-                                >
-                                    <Image
-                                        src={src}
-                                        alt={`Gallery image ${index + 1}`}
-                                        fill
-                                        className="object-cover hover:scale-105 transition-transform duration-500"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Action Button */}
-                    <div className="flex justify-center py-8">
-                        <Link href="/booking" className="bg-[#C5A880] text-white px-12 md:px-16 py-4 md:py-5 rounded-xl font-bold text-sm md:text-base uppercase tracking-widest hover:bg-[#b59870] transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-                            Book This Service
-                        </Link>
-                    </div>
-                </div>
-            </main>
+          <div className="relative h-[420px] md:h-[620px] rounded-[24px] overflow-hidden shadow-2xl">
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+          </div>
         </div>
-    );
+      </section>
+
+      <main className="max-w-7xl mx-auto px-6 py-20">
+        <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.32em] text-[#D9A05B] font-bold mb-4">
+              Styling Focus
+            </p>
+            <h2 className="text-3xl md:text-5xl font-serif leading-tight">
+              Designed around your face, wardrobe, comfort, and moment.
+            </h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-5">
+            {service.includes.map((item) => (
+              <div key={item} className="bg-[#151515] rounded-2xl p-6 border border-white/[0.07] shadow-sm">
+                <CheckCircle className="w-5 h-5 text-[#D9A05B] mb-5" />
+                <p className="text-gray-300 leading-relaxed">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-20 bg-[#111111] text-white rounded-[24px] px-8 py-10 md:px-12 md:py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8 border border-white/10">
+          <div>
+            <h3 className="text-3xl md:text-4xl font-serif mb-3">Ready to begin?</h3>
+            <p className="text-white/65 max-w-2xl">
+              Connect with Ever Moment to schedule a private session tailored to your occasion, preferences, and personal style.
+            </p>
+          </div>
+          <Link
+            href="/booking"
+            className="inline-flex shrink-0 items-center justify-center gap-3 bg-[#D9A05B] text-[#111] px-8 py-4 rounded-xl font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-white transition-colors"
+          >
+            Book Appointment
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
 };
 
 export default ServiceDetail;

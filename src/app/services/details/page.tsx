@@ -1,5 +1,5 @@
-import ServiceDetail from "@/app/components/servicesdetails/servicedetail";
+import { redirect } from "next/navigation";
 
 export default function ServiceDetailsPage() {
-    return <ServiceDetail />;
+  redirect("/services/bride-groom-styling");
 }
