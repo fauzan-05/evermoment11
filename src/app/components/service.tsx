@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { services } from "../lib/services";
+import { services } from "../../lib/services";
 
 const StylingServices = () => {
   return (

@@ -21,7 +21,7 @@ import {
     Home,
     Heart
 } from "lucide-react";
-import { services } from "../lib/services";
+import { services } from "../../lib/services";
 
 gsap.registerPlugin(ScrollTrigger);
 

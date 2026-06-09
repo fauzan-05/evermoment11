@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ServiceDetail from "@/app/components/servicesdetails/servicedetail";
-import { getServiceBySlug, services } from "@/app/lib/services";
+import { getServiceBySlug, services } from "@/lib/services";
 
 type ServicePageProps = {
   params: Promise<{

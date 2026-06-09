@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
-import type { Service } from "@/app/lib/services";
+import type { Service } from "@/lib/services";
 
 type ServiceDetailProps = {
   service: Service;
