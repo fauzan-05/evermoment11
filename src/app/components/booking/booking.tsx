@@ -69,6 +69,10 @@ ${formData.message || "No additional message"}
     whatsappMessage
   )}`;
 
+  const openWhatsApp = () => {
+    window.location.href = whatsappUrl;
+  };
+
   try {
     const response = await fetch("/api/appointments", {
       method: "POST",
@@ -78,18 +82,16 @@ ${formData.message || "No additional message"}
       body: JSON.stringify(formData),
     });
 
-    const data = await response.json();
+    const data = await response.json().catch(() => null);
 
-    if (!data.success) {
-      throw new Error("Failed to save appointment");
+    if (response.ok && data?.success) {
+      openWhatsApp();
+      return;
     }
 
-    // Redirect current tab to WhatsApp
-    window.location.href = whatsappUrl;
-
+    openWhatsApp();
   } catch (error) {
-    console.error(error);
-    alert("Something went wrong");
+    openWhatsApp();
   }
 };
 

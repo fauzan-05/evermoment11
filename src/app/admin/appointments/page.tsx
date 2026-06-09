@@ -33,6 +33,7 @@ export default function AdminAppointments() {
     Appointment[]
   >([]);
 const lastCountRef = useRef(0);
+  const [fetchError, setFetchError] = useState("");
 
   const [activeTab, setActiveTab] =
     useState("Pending");
@@ -63,12 +64,19 @@ const fetchAppointments = async () => {
     });
 
     if (!res.ok) {
-      throw new Error(
-        `Failed to fetch appointments: ${res.status}`
+      const errorData = await res
+        .json()
+        .catch(() => null);
+
+      setFetchError(
+        errorData?.error ||
+          `Failed to fetch appointments: ${res.status}`
       );
+      return;
     }
 
     const data = await res.json();
+    setFetchError("");
 
     // First load only
     if (lastCountRef.current === 0) {
@@ -122,9 +130,10 @@ const fetchAppointments = async () => {
 
     setAppointments(data);
   } catch (error) {
-    console.error(
-      "Fetch appointments error:",
-      error
+    setFetchError(
+      error instanceof Error
+        ? error.message
+        : "Failed to fetch appointments"
     );
   }
 };
@@ -227,6 +236,12 @@ const fetchAppointments = async () => {
             Appointments
           </h1>
         </div>
+
+        {fetchError && (
+          <div className="mb-8 rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm text-red-200">
+            {fetchError}
+          </div>
+        )}
 
         {/* STATS */}
 

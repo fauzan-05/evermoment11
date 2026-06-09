@@ -1,87 +1,97 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import {
+  CalendarDays,
+  ChevronRight,
+  Crown,
+  Gift,
+  Heart,
+  Sparkles,
+  Users,
+} from "lucide-react";
+import { galleryCategories } from "@/lib/gallery";
 
-const images = [
-  {
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop",
-    alt: "Wedding couple",
-    height: 600,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop",
-    alt: "Wedding rings",
-    height: 400,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=2070&auto=format&fit=crop",
-    alt: "Wedding venue",
-    height: 500,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2070&auto=format&fit=crop",
-    alt: "Bride and groom",
-    height: 450,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=2070&auto=format&fit=crop",
-    alt: "Wedding celebration",
-    height: 550,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop",
-    alt: "Wedding flowers",
-    height: 400,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop",
-    alt: "Bride",
-    height: 650,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1505315891316-de1bc6a7a58a?q=80&w=2070&auto=format&fit=crop",
-    alt: "Wedding dinner",
-    height: 400,
-  },
-  {
-    src: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop",
-    alt: "Wedding cake",
-    height: 500,
-  },
-];
+const iconMap = {
+  heart: Heart,
+  users: Users,
+  sparkles: Sparkles,
+  crown: Crown,
+  gift: Gift,
+};
 
 export default function Gallery() {
+  const featured = galleryCategories[0];
+
   return (
-    <section className="w-full min-h-screen bg-[#0A0A0A] text-white px-4 sm:px-6 lg:px-8 py-32 md:py-40">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-10 text-center">
-          <p className="text-[10px] uppercase tracking-[0.34em] text-[#D9A05B] font-bold mb-4">
-            Gallery
-          </p>
-          <h2 className="text-4xl md:text-6xl font-serif mb-4 text-white">A Look at Ever Moment</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            A collection of moments shaped through detail, balance, and personal styling.
-            Each look reflects individuality, intention, and a refined approach to presence.
-          </p>
+    <section className="min-h-screen bg-[#0A0A0A] text-white pb-10">
+      <div className="relative min-h-[520px] overflow-hidden bg-[#0A0A0A] pt-32 text-white md:min-h-[620px] md:pt-40">
+        <Image
+          src={featured.image}
+          alt="Ever Moment gallery"
+          fill
+          className="object-cover opacity-70"
+          priority
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/65 to-black/10" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/55 to-transparent" />
+
+        <div className="relative mx-auto flex min-h-[360px] w-full max-w-6xl items-center px-5 md:min-h-[430px] md:px-8">
+          <div>
+            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.34em] text-[#D9A05B]">
+              Ever Moment
+            </p>
+            <h1 className="max-w-md text-5xl font-serif leading-tight md:text-7xl">
+              Gallery
+            </h1>
+            <p className="mt-5 max-w-sm text-sm leading-6 text-white/80 md:text-base">
+              Explore curated moments styled to perfection across weddings,
+              guests, family, and personal occasions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto -mt-10 w-full max-w-6xl px-5 md:-mt-14 md:px-8">
+        <div className="grid gap-4 px-4 md:grid-cols-2">
+          {galleryCategories.map((category) => {
+            const Icon = iconMap[category.icon];
+
+            return (
+              <Link
+                key={category.slug}
+                href={`/gallery/${category.slug}`}
+                className="group flex min-h-28 items-center gap-4 rounded-2xl border border-white/10 bg-[#151515]/95 p-5 shadow-[0_16px_45px_rgba(0,0,0,0.28)] transition hover:-translate-y-1 hover:border-[#D9A05B]/60 hover:bg-[#1B1B1B]"
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#231A10] text-[#D9A05B]">
+                  <Icon size={24} strokeWidth={1.7} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-base font-bold text-white">
+                    {category.title}
+                  </span>
+                  <span className="mt-1 block text-xs font-semibold text-white/55">
+                    {category.sections.length} Categories
+                  </span>
+                </span>
+                <ChevronRight
+                  size={20}
+                  className="text-[#D9A05B] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+                />
+              </Link>
+            );
+          })}
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-          {images.map((image, index) => (
-            <div key={index} className="break-inside-avoid relative group rounded-xl overflow-hidden shadow-sm border border-white/10 hover:border-[#D9A05B]/30 transition-colors duration-300">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                width={600}
-                height={image.height}
-                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                unoptimized
-              />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="text-white font-medium tracking-wider uppercase text-sm border border-white/50 px-4 py-2 rounded-full backdrop-blur-sm">View</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Link
+          href="/booking"
+          className="mx-4 mt-8 flex items-center justify-center gap-3 rounded-2xl bg-[#D9A05B] px-6 py-4 text-xs font-extrabold uppercase tracking-[0.12em] text-[#111] shadow-[0_14px_30px_rgba(217,160,91,0.22)] transition hover:bg-white md:mx-auto md:max-w-md"
+        >
+          <CalendarDays size={17} />
+          Book Appointment
+        </Link>
       </div>
     </section>
   );
