@@ -2,24 +2,29 @@ import mongoose from "mongoose";
 
 const GallerySchema = new mongoose.Schema(
   {
-    title: {
+    categorySlug: {
       type: String,
       required: true,
     },
 
-    category: {
+    sectionSlug: {
       type: String,
       required: true,
     },
 
-    subCategory: {
+    imageUrl: {
       type: String,
       required: true,
     },
 
-    image: {
+    publicId: {
       type: String,
       required: true,
+    },
+
+    alt: {
+      type: String,
+      default: "",
     },
   },
   {

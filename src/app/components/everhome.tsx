@@ -21,11 +21,12 @@ import {
     Home,
     Heart
 } from "lucide-react";
-import { services } from "../../lib/services";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const EverHome = () => {
+    const [services, setServices] = React.useState<any[]>([]);
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.utils.toArray<HTMLElement>('.fade-up').forEach((elem) => {
@@ -46,6 +47,20 @@ const EverHome = () => {
         });
         return () => ctx.revert();
     }, []);
+
+    useEffect(() => {
+    const fetchServices = async () => {
+        try {
+            const res = await fetch("/api/services");
+            const data = await res.json();
+            setServices(data);
+        } catch (err) {
+            console.error("Failed to load services", err);
+        }
+    };
+
+    fetchServices();
+}, []);
 
     return (
         <div className="bg-[#0A0A0A] text-white font-sans w-full overflow-x-hidden selection:bg-[#D9A05B] selection:text-white">

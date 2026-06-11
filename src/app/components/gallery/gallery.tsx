@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect,useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { galleryCategories } from "@/lib/gallery";
 
+
 const iconMap = {
   heart: Heart,
   users: Users,
@@ -21,20 +22,39 @@ const iconMap = {
   gift: Gift,
 };
 
+
 export default function Gallery() {
-  const featured = galleryCategories[0];
+  
+  const [heroImage, setHeroImage] =
+  useState("");
+
+useEffect(() => {
+  async function loadHero() {
+    const res = await fetch("/api/gallery");
+
+    const data = await res.json();
+
+    if (data.length > 0) {
+      setHeroImage(data[0].imageUrl);
+    }
+  }
+
+  loadHero();
+}, []);
 
   return (
     <section className="min-h-screen bg-[#0A0A0A] text-white pb-10">
       <div className="relative min-h-[520px] overflow-hidden bg-[#0A0A0A] pt-32 text-white md:min-h-[620px] md:pt-40">
-        <Image
-          src={featured.image}
-          alt="Ever Moment gallery"
-          fill
-          className="object-cover opacity-70"
-          priority
-          unoptimized
-        />
+     {heroImage && (
+  <Image
+    src={heroImage}
+    alt="Ever Moment gallery"
+    fill
+    priority
+    unoptimized
+    className="object-cover opacity-70"
+  />
+)}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/65 to-black/10" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/55 to-transparent" />
 

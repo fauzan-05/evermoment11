@@ -1,42 +1,33 @@
 import { notFound } from "next/navigation";
-import ServiceDetail from "@/app/components/servicesdetails/servicedetail";
-import { getServiceBySlug, services } from "@/lib/services";
+import connectDB from "@/lib/mongodb";
+import Service from "@/models/Service";
+import ServiceDetail from "@/app/components/servicedetails/servicedetail";
 
-type ServicePageProps = {
+export default async function ServicePage({
+  params,
+}: {
   params: Promise<{
     slug: string;
   }>;
-};
-
-export function generateStaticParams() {
-  return services.map((service) => ({
-    slug: service.slug,
-  }));
-}
-
-export async function generateMetadata({ params }: ServicePageProps) {
+}) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
 
-  if (!service) {
-    return {
-      title: "Service Not Found | Ever Moment",
-    };
-  }
+  await connectDB();
 
-  return {
-    title: `${service.title} | Ever Moment`,
-    description: service.shortDescription,
-  };
-}
-
-export default async function ServicePage({ params }: ServicePageProps) {
-  const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const service = await Service.findOne({
+    slug,
+  }).lean();
 
   if (!service) {
     notFound();
   }
 
-  return <ServiceDetail service={service} />;
+  return (
+    <ServiceDetail
+      service={{
+        ...service,
+        _id: service._id.toString(),
+      }}
+    />
+  );
 }
