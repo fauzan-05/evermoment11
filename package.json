@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev ./frontend --webpack",
-    "build": "next build ./frontend --webpack",
-    "start": "next start ./frontend",
-    "lint": "eslint frontend/src backend/src --config frontend/eslint.config.mjs"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
     "cloudinary": "^2.10.0",
