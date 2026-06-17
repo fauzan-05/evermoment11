@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LogoutButton from "@/app/components/LogoutButton";
 import Image from "next/image";
 import {
   Upload,
@@ -333,6 +334,7 @@ export default function AdminGallery() {
               ? "Uploading..."
               : "Upload Images"}
           </button>
+           <LogoutButton />
 
         </div>
 
@@ -392,8 +394,10 @@ export default function AdminGallery() {
                     />
                     Delete
                   </button>
+                 
 
                 </div>
+                 
 
               </div>
             )

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import LogoutButton from "@/app/components/LogoutButton";
 import {
   Trash2,
   Eye,
@@ -26,7 +27,9 @@ type Appointment = {
   isRead: boolean;
 };
 
+
 export default function AdminAppointments() {
+  
   const lastAppointmentIdRef =
   useRef<string | null>(null);
   const [appointments, setAppointments] = useState<
@@ -370,6 +373,11 @@ const fetchAppointments = async () => {
             />
             Cancelled
           </button>
+          <LogoutButton />
+          
+
+          
+          
 
         </div>
 

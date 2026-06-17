@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LogoutButton from "@/app/components/LogoutButton";
 
 type Service = {
   _id: string;
@@ -148,10 +149,15 @@ export default function AdminServices() {
 
   // ---------------- UI ----------------
   return (
-    <div className="p-8">
-      <h1 className="mb-8 text-3xl font-bold">
-        Manage Services
-      </h1>
+  <div className="p-8">
+
+  <div className="mb-8 flex items-center justify-between">
+    <h1 className="text-3xl font-bold">
+      Manage Services
+    </h1>
+
+   
+  </div>
 
       {/* FORM */}
       <form onSubmit={createService} className="mb-10 space-y-4">
@@ -237,6 +243,8 @@ export default function AdminServices() {
         >
           Add Service
         </button>
+        <LogoutButton />
+        
       </form>
 
       {/* LIST */}

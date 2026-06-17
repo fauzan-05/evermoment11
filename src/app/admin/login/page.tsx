@@ -28,8 +28,10 @@ export default function AdminLoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [notice, setNotice] = useState("");
+  const [forgotLoading, setForgotLoading] =
+  useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit =async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const nextErrors: FormErrors = {};
@@ -54,11 +56,27 @@ export default function AdminLoginPage() {
       return;
     }
 
-    setIsSubmitting(true);
+  const response = await fetch("/api/auth/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email,
+    password,
+  }),
+});
 
-    window.setTimeout(() => {
-      router.push("/admin");
-    }, 700);
+const data = await response.json();
+
+if (!response.ok) {
+  setNotice(data.message || "Login failed");
+  setIsSubmitting(false);
+  return;
+}
+
+router.push("/admin/appointments");
+router.refresh();
   };
 
   return (
@@ -191,17 +209,52 @@ export default function AdminLoginPage() {
                   >
                     Password
                   </label>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setNotice(
-                        "Password recovery will be available after the authentication API is connected."
-                      )
-                    }
-                    className="text-xs font-semibold text-[#D9A05B] transition hover:text-[#F1C38B]"
-                  >
-                    Forgot password?
-                  </button>
+           <button
+  type="button"
+  disabled={forgotLoading}
+  onClick={async () => {
+    if (!email) {
+      setNotice("Enter your email address first");
+      return;
+    }
+
+    try {
+      setForgotLoading(true);
+
+      const res = await fetch(
+        "/api/auth/forgot-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      setNotice(
+        data.message ||
+          "Password reset email sent."
+      );
+    } catch {
+      setNotice(
+        "Failed to send password reset email."
+      );
+    } finally {
+      setForgotLoading(false);
+    }
+  }}
+  className="text-xs font-semibold text-[#D9A05B] transition hover:text-[#F1C38B]"
+>
+  {forgotLoading
+    ? "Sending..."
+    : "Forgot password?"}
+</button>
                 </div>
                 <div
                   className={`group flex items-center rounded-2xl border bg-[#111111] px-4 transition ${
